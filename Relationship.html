@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relationship</title>
+</head>
+<body style ="background-color:pink;">
+
+<h2>Relationship</h2>
+<p style ="color:white;">This will tell you about relationship of the two person.</p>
+
+<form id="relationshipForm">
+  <label for="person1Month">Select First Person's Birth Month and Day:</label><br>
+  <select id="person1Month" name="person1Month">
+    <option value="1">January</option>
+    <option value="2">February</option>
+    <option value="3">March</option>
+    <option value="4">April</option>
+    <option value="5">May</option>
+    <option value="6">June</option>
+    <option value="7">July</option>
+    <option value="8">August</option>
+    <option value="9">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+    <option value="12">December</option>
+  </select><br>
+
+  <label for="person1Day"></label><br>
+  <select id="person1Day" name="person1Day">
+    <script>
+      for (var i = 1; i <= 31; i++) {
+        document.write('<option value="' + i + '">' + i + '</option>');
+      }
+    </script>
+  </select><br><br>
+
+  <label for="person2Month">Select Second Person's Birth Month and Day:</label><br>
+  <select id="person2Month" name="person2Month">
+    <option value="1">January</option>
+    <option value="2">February</option>
+    <option value="3">March</option>
+    <option value="4">April</option>
+    <option value="5">May</option>
+    <option value="6">June</option>
+    <option value="7">July</option>
+    <option value="8">August</option>
+    <option value="9">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+    <option value="12">December</option>
+  </select><br><br>
+
+  <label for="person2Day"></label>
+  <select id="person2Day" name="person2Day">
+    <script>
+      for (var i = 1; i <= 31; i++) {
+        document.write('<option value="' + i + '">' + i + '</option>');
+      }
+    </script>
+  </select>
+<br><br><br>
+  <button style="padding: 10px 20px;background-color:yellowgreen;color:white" type="submit">Submit</button>
+</form><hr>
+<div id="result" style="display:none ;">
+  <br id="relationshipNumber">
+  <h3>The Relationship of these two persons:</h3>
+  <p id="nMeaning"></p>
+</div>
+<br><br><br>
+<script>
+document.getElementById("relationshipForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  
+  var person1Month = parseInt(document.getElementById("person1Month").value);
+  var person1Day = parseInt(document.getElementById("person1Day").value);
+  var person2Month = parseInt(document.getElementById("person2Month").value);
+  var person2Day = parseInt(document.getElementById("person2Day").value);
+
+  // Calculate the relationship number
+  var relationshipNumber = calculateRelationshipNumber(person1Month, person1Day, person2Month, person2Day);
+
+  // Display the result
+  document.getElementById("relationshipNumber").textContent = relationshipNumber;
+
+  // Determine the meaning of the relationship number in n
+  var nMeaning = getMeaning(relationshipNumber);
+  document.getElementById("nMeaning").textContent = nMeaning;
+
+  // Show the result section
+  document.getElementById("result").style.display = "block";
+});
+
+function calculateRelationshipNumber(month1, day1, month2, day2) {
+  var total = month1 + day1 + month2 + day2;
+  // Reduce the total to a single digit by adding the digits together
+  while (total > 9) {
+    total = Math.floor(total / 10) + (total % 10);
+  }
+  return total;
+}
+
+function getMeaning(number) {
+  var meanings = {
+     1: "Harmonious and Mutually Understanding Relationship: In this relationship, both partners share a deep understanding of each other's needs and aspirations. They communicate effectively, listening attentively and responding with empathy. Harmony pervades their interactions, as they naturally complement each other's strengths and weaknesses. They cherish their differences, recognizing them as opportunities for growth and learning. Conflict, when it arises, is approached with patience and respect, leading to constructive resolution. Trust is the cornerstone of their bond, fostering a sense of security and stability. Together, they create a nurturing environment where each feels valued and supported. Your relationship is filled with harmony and mutual understanding. You complement each other perfectly.",
+                2: "Supportive and Nurturing Relationship: This relationship is characterized by unwavering support and encouragement. Both partners prioritize each other's well-being, providing a safe haven in which to thrive. They actively nurture each other's dreams and ambitions, celebrating successes and offering solace in times of hardship. Theirs is a partnership built on mutual respect and admiration, where each feels empowered to pursue their passions. They cultivate a sense of balance by sharing responsibilities and making decisions collaboratively. Through their collective efforts, they create a stable foundation upon which to weather life's storms. Your relationship is supportive and nurturing. Together, you create a sense of balance and stability.",
+                3: "Dynamic and Creative Relationship: Creativity abounds in this relationship, as both partners inspire each other to express themselves fully. They embrace change as an opportunity for growth, approaching challenges with innovation and ingenuity. Together, they cultivate a dynamic environment where ideas flow freely and imagination knows no bounds. Theirs is a union fueled by passion and curiosity, as they explore new avenues of self-expression. They find joy in the journey of discovery, infusing every moment with spontaneity and excitement. Through their creative endeavors, they forge a deep connection that transcends the ordinary. Your relationship is dynamic and creative. You inspire each other to express yourselves fully.",
+                4: "Grounded and Practical Relationship: Practicality reigns supreme in this relationship, as both partners work diligently to achieve their shared goals. They approach life with a sense of pragmatism, making sound decisions based on logic and reason. Together, they navigate challenges with a steady hand, relying on each other for support and guidance. Theirs is a partnership built on mutual respect and accountability, where promises are kept and commitments honored. They understand the value of hard work and perseverance, recognizing that success is earned through determination and resilience. Through their practical approach, they lay the groundwork for a secure and prosperous future. Your relationship is grounded and practical. You work well together to achieve your shared goals.",
+                5: "Adventurous and Exciting Relationship: Adventure awaits in this relationship, as both partners thrive on variety and spontaneity. They embrace new experiences with open arms, seeking excitement wherever it may be found. Together, they embark on thrilling escapades that ignite their passion for life. Theirs is a union fueled by adrenaline and exploration, as they push each other out of their comfort zones. They savor the thrill of the unknown, relishing the freedom to chart their own course. Through their shared adventures, they forge unforgettable memories that bind them together in a bond of exhilaration and joy. Your relationship is adventurous and exciting. You thrive on variety and spontaneity.",
+                6: "Loving and Compassionate Relationship: Love is the cornerstone of this relationship, as both partners care deeply for each other's well-being. They express their affection openly, showering each other with kindness and compassion. Theirs is a bond forged in empathy and understanding, where each feels seen and valued for who they are. They prioritize harmony in their interactions, fostering a sense of peace and contentment. Together, they weather life's challenges with grace and resilience, drawing strength from their unwavering commitment to each other. Through their love and compassion, they create a sanctuary of warmth and acceptance. Your relationship is loving and compassionate. You care deeply for each other and prioritize harmony.",
+                7: "Introspective and Spiritual Relationship: Spirituality infuses every aspect of this relationship, as both partners seek deeper meaning and understanding together. They engage in introspective practices that nourish their souls and deepen their connection to each other and the world around them. Theirs is a union rooted in mindfulness and reflection, as they explore the depths of their inner selves. They find solace in moments of stillness, embracing the beauty of the present moment. Together, they embark on a journey of spiritual growth, supporting each other along the way. Through their shared exploration, they uncover profound truths that enrich their lives and strengthen their bond. Your relationship is introspective and spiritual. You seek deeper meaning and understanding together.",
+                8: "Success-Focused and Achievement-Oriented Relationship: Success is the driving force behind this relationship, as both partners support each other's ambitions wholeheartedly. They set ambitious goals and work tirelessly to achieve them, leveraging their combined strengths to overcome obstacles. Theirs is a partnership built on mutual respect and admiration, as they celebrate each other's accomplishments with pride. They understand the importance of perseverance and determination, refusing to settle for anything less than excellence. Together, they forge a path to success, fueled by their shared vision for the future. Your relationship is focused on success and achievement. You support each other's ambitions.",
+                9: "Compassionate and Humanitarian Relationship: Compassion is at the heart of this relationship, as both partners are committed to making a positive impact on the world. They share a deep sense of empathy for others, working together to address social issues and promote equality and justice. Theirs is a union built on a foundation of service and altruism, as they seek to uplift those in need. They channel their energy into meaningful endeavors that align with their values, inspiring others to join them in their mission. Through their compassionate actions, they leave a lasting legacy of kindness and generosity. Your relationship is compassionate and humanitarian. You work together to make a positive impact on the world."
+  };
+  return meanings[number];
+}
+</script>
+<hr>
+<center><button ><a href="1.html">Go to Human Personality Identifier...</button></a></center>
+</body>
+</html>
