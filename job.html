@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Suggestion by Birthdate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            Background-color:yellowgreen;
+            color:white;
+        }
+        #jobSuggestions {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="background-color:orange">
+    <h1>Find Your Ideal Job</h1>
+    <p>Select your birth month and day:</p>
+    <label for="birthMonth">Birth Month:</label>
+    <select id="birthMonth" style="color:yellowgreen">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+    <br><br>
+    <label for="birthDay">Birth Day:</label>
+    <select id="birthDay" style="color:yellowgreen">
+        <!-- Options will be generated dynamically using JavaScript -->
+    </select>
+    <br><br>
+    <button onclick="findJobs()">See Jobs Suggestion</button>
+    <div id="jobSuggestions"></div>
+
+    <script>
+        // Function to generate options for birth day based on selected month
+        function generateBirthDayOptions() {
+            var birthMonthSelect = document.getElementById('birthMonth');
+            var birthDaySelect = document.getElementById('birthDay');
+            var daysInMonth = 31;
+
+            // Clear previous options
+            birthDaySelect.innerHTML = '';
+
+            // Update days in month for February and April, June, September, November
+            var selectedMonth = birthMonthSelect.value;
+            if (selectedMonth === '2') {
+                daysInMonth = 28; // Assuming no leap year for simplicity
+            } else if (['4', '6', '9', '11'].includes(selectedMonth)) {
+                daysInMonth = 30;
+            }
+
+            // Generate options for birth day
+            for (var i = 1; i <= daysInMonth; i++) {
+                var option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                birthDaySelect.appendChild(option);
+            }
+        }
+
+        // Call generateBirthDayOptions function when birth month is changed
+        document.getElementById('birthMonth').addEventListener('change', generateBirthDayOptions);
+
+        // Call generateBirthDayOptions function initially to populate days for January
+        generateBirthDayOptions();
+
+        // Function to calculate the Numgical value of a number
+        function calculateNumgy(number) {
+            var sum = 0;
+            while (number > 0 || sum > 9) {
+                if (number == 0) {
+                    number = sum;
+                    sum = 0;
+                }
+                sum += number % 10;
+                number = Math.floor(number / 10);
+            }
+            return sum;
+        }
+
+        // Function to get job suggestion based on birth month, day, or Numgical calculation
+        function findJobs() {
+            var birthMonth = document.getElementById('birthMonth').value;
+            var birthDay = document.getElementById('birthDay').value;
+            var jobSuggestions = document.getElementById('jobSuggestions');
+
+            // Jobs array
+            var jobs = [
+                "Entrepreneur", "Teacher", "Doctor", "Engineer", "Artist", "Writer", "Musician", "Scientist", "Athlete",
+                "Chef", "Lawyer", "Politician", "Actor", "Designer", "Nurse", "Programmer", "Psychologist", "Architect",
+                "Photographer", "Marketing Specialist", "Financial Advisor", "Fashion Designer", "Human Resources Manager",
+                "Social Worker", "Journalist", "Environmental Scientist", "Dentist", "Flight Attendant", "Event Planner",
+                "Veterinarian"
+            ];
+
+            // Job explanations
+            var jobExplanations = {
+                "Entrepreneur": "You are independent, innovative, and have strong leadership skills.",
+                "Teacher": "You have a natural inclination towards imparting knowledge and nurturing others.",
+                "Doctor": "You are compassionate, have a desire to help others, and possess strong problem-solving skills.",
+                "Engineer": "You have a logical mindset, enjoy problem-solving, and are detail-oriented.",
+                "Artist": "You are creative, expressive, and have a unique perspective on the world.",
+                "Writer": "You have a way with words, enjoy storytelling, and have a vivid imagination.",
+                "Musician": "You are passionate about music, have a good ear for rhythm, and enjoy performing.",
+                "Scientist": "You have a curious mind, enjoy conducting experiments, and are dedicated to discovery.",
+                "Athlete": "You are competitive, physically fit, and thrive in challenging situations.",
+                "Chef": "You have a love for cooking, enjoy experimenting with flavors, and have good organizational skills.",
+                "Lawyer": "You are analytical, have strong communication skills, and are adept at arguing your case.",
+                "Politician": "You are charismatic, have strong leadership abilities, and are passionate about social change.",
+                "Actor": "You enjoy performing, have a talent for embodying different characters, and thrive in the spotlight.",
+                "Designer": "You have an eye for aesthetics, enjoy creating visually appealing designs, and are detail-oriented.",
+                "Nurse": "You are empathetic, have a desire to care for others, and can remain calm under pressure.",
+                "Programmer": "You have strong problem-solving skills, enjoy working with technology, and have a logical mindset.",
+                "Psychologist": "You are empathetic, a good listener, and have a desire to help others overcome challenges.",
+                "Architect": "You have a creative vision, enjoy designing structures, and have strong attention to detail.",
+                "Photographer": "You have an artistic eye, enjoy capturing moments, and have a passion for storytelling through images.",
+                "Marketing Specialist": "You are creative, have strong communication skills, and enjoy strategizing.",
+                "Financial Advisor": "You have strong analytical skills, enjoy working with numbers, and have a good understanding of finance.",
+                "Fashion Designer": "You have a keen sense of style, enjoy creating clothing designs, and are innovative.",
+                "Human Resources Manager": "You are empathetic, have strong interpersonal skills, and enjoy supporting others.",
+                "Social Worker": "You are compassionate, have a desire to help others, and are dedicated to social justice.",
+                "Journalist": "You have strong communication skills, enjoy storytelling, and have a passion for uncovering the truth.",
+                "Environmental Scientist": "You are passionate about the environment, enjoy conducting research, and are dedicated to sustainability.",
+                "Dentist": "You have strong attention to detail, enjoy working with your hands, and are committed to oral health.",
+                "Flight Attendant": "You enjoy traveling, have strong communication skills, and are adaptable to different situations.",
+                "Event Planner": "You are organized, have strong interpersonal skills, and enjoy coordinating logistics.",
+                "Veterinarian": "You have a love for animals, enjoy helping them stay healthy, and have strong problem-solving skills."
+            };
+
+            // Numgical calculation of birth month and day
+            var NumgicalValue = calculateNumgy(parseInt(birthMonth) + parseInt(birthDay));
+
+          
+
+            // Job suggestion based on birthday
+            var daySuggestionIndex = (birthDay - 1) % jobs.length;
+            var suggestedDayJob = jobs[daySuggestionIndex];
+
+            // Job suggestion based on the Numgical value (only for 1-9)
+            var suggestedNumgyJob = "";
+            if (NumgicalValue >= 1 && NumgicalValue <= 9) {
+                suggestedNumgyJob = jobs[NumgicalValue - 1];
+            } else {
+                suggestedNumgyJob = "Numgical calculation is only available for birth month and day resulting in a single digit.";
+            }
+            // Displaying job suggestions
+            jobSuggestions.innerHTML = 
+                                        "<strong>1:</strong> " + suggestedDayJob + ". " + jobExplanations[suggestedDayJob] + "<br><br>" +
+                                        "<strong>2:</strong> " + suggestedNumgyJob + ". " + jobExplanations[suggestedNumgyJob];
+        }
+    </script>
+    <br>
+    <a href="1.html">Go to Personality Identifier...</a>
+    <a href=""></a><br><br>
+    <a href="Relationship.html" style="color:blue;">Go to Love Compatibility...</a>
+</body>
+</html>
